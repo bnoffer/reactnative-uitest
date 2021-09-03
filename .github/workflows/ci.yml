@@ -53,4 +53,4 @@ jobs:
           path: android/app/build/outputs/bundle/debug/app-debug.aab
 
       - uses: actions/setup-dotnet@v1
-      - run: dotnet build ../reactdemoapp-uitest/reactdemoapp-uitest.Droid/reactdemoapp-uitest.Droid.csproj
+      - run: dotnet build ../reactdemoapp-uitest/reactdemoapp-uitest.sln
