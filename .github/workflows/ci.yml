@@ -50,9 +50,9 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Debug App Bundle
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          path: ./android/app/build/outputs/bundle/debug/app-debug.aab
 
       - uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: "4.7.2"
+          dotnet-version: "3.1.x"
       - run: dotnet build ../reactdemoapp-uitest/reactdemoapp-uitest.Droid/reactdemoapp-uitest.Droid.csproj
