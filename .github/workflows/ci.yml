@@ -7,20 +7,20 @@ on:
 
 defaults:
   run:
-    working-directory: reactdemoapp
+    working-directory: ./reactdemoapp
 
 jobs:
   beta-distribution:
     runs-on: ubuntu-latest
+    env:
+      working-directory: ./reactdemoapp
     name: Beta Distribution
     steps:
-      - name: Working Dirctory
-        run: /usr/bin/pwd
-
       - name: Checkout
         uses: actions/checkout@v2
       - uses: actions/setup-node@master
       - uses: c-hive/gha-yarn-cache@v1
+        working-directory: ${{jobs.<job_id>.steps.run}}
 
       - name: Install node modules
         run: |
