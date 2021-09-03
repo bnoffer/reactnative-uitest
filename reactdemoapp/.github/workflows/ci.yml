@@ -17,7 +17,7 @@ jobs:
 
       - name: Install node modules
         run: |
-          cd reactdemoapp && yarn install
+          yarn install
       - name: Cache Gradle Wrapper
         uses: actions/cache@v2
         with:
@@ -32,19 +32,19 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle-caches-
       - name: Make Gradlew Executable
-        run: cd reactdemoapp/android && chmod +x ./gradlew
+        run: cd android && chmod +x ./gradlew
 
       - name: Build Android App Bundle
         run: |
-          cd reactdemoapp/android && ./gradlew bundleDebug --no-daemon
+          cd android && ./gradlew bundleDebug --no-daemon
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
           name: Debug App Bundle
-          path: reactdemoapp/android/app/build/outputs/apk/debug/app-debug.apk
+          path: android/app/build/outputs/apk/debug/app-debug.apk
 
       - uses: actions/setup-dotnet@v1
         with:
           dotnet-version: "4.7.2"
-      - run: dotnet build reactdemoapp-uitest/reactdemoapp-uitest.Droid/reactdemoapp-uitest.Droid.csproj
+      - run: dotnet build ../reactdemoapp-uitest/reactdemoapp-uitest.Droid/reactdemoapp-uitest.Droid.csproj
