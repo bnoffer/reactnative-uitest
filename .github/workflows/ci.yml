@@ -21,7 +21,7 @@ jobs:
       - uses: actions/setup-node@master
         with:
           node-version: 14.x
-      - uses: c-hive/gha-yarn-cache@v1
+      # - uses: c-hive/gha-yarn-cache@v1
 
       - name: Install node modules
         run: |
