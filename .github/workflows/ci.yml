@@ -50,7 +50,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Debug App Bundle
-          path: android/app/build/outputs/bundle/debug/app-debug.aab
+          path: android/app/build/outputs/apk/debug/app-debug.apk
 
       - uses: actions/setup-dotnet@v1
-      - run: dotnet build ../reactdemoapp-uitest/reactdemoapp-uitest.sln
+      - run: cd ../reactdemoapp-uitest && dotnet build reactdemoapp-uitest.sln
