@@ -1,9 +1,13 @@
 name: Continuous Integration
 
 on:
-  pull_request:
+  push:
     branches:
       - main
+
+defaults:
+  run:
+    working-directory: reactdemoapp
 
 jobs:
   beta-distribution:
