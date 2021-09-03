@@ -52,5 +52,11 @@ jobs:
           name: Debug App Bundle
           path: android/app/build/outputs/apk/debug/app-debug.apk
 
-      - uses: actions/setup-dotnet@v1
-      - run: cd ../reactdemoapp-uitest && dotnet build reactdemoapp-uitest.sln
+      # - uses: actions/setup-dotnet@v1
+      - uses: nuget/setup-nuget@v1
+      - run: nuget restore ../reactdemoapp-uitest/reactdemoapp-uitest.sln
+
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v1.0.3
+      - run: msbuild ../reactdemoapp-uitest/reactdemoapp-uitest.Droid/reactdemoapp-uitest.Droid.csproj
+      # - run: cd ../reactdemoapp-uitest && dotnet build reactdemoapp-uitest.sln
