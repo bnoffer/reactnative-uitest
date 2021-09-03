@@ -15,7 +15,7 @@ jobs:
     name: Beta Distribution
     steps:
       - name: Working Dirctory
-        run: pwd
+        run: /usr/bin/pwd
 
       - name: Checkout
         uses: actions/checkout@v2
