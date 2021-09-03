@@ -11,7 +11,7 @@ defaults:
 
 jobs:
   beta-distribution:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     env:
       working-directory: ./reactdemoapp
     name: Beta Distribution
@@ -50,9 +50,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Debug App Bundle
-          path: ./android/app/build/outputs/bundle/debug/app-debug.aab
+          path: android/app/build/outputs/bundle/debug/app-debug.aab
 
       - uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: "3.1.x"
       - run: dotnet build ../reactdemoapp-uitest/reactdemoapp-uitest.Droid/reactdemoapp-uitest.Droid.csproj
