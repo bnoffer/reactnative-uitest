@@ -17,5 +17,17 @@ namespace reactdemoappuitest
         {
             app.Screenshot("First screen.");
         }
+
+        [Test]
+        public void ChangeColors()
+        {
+            app.Screenshot("screenshot_Started");
+            app.Tap("red");
+            app.Screenshot("screenshot_red");
+            app.Tap("blue");
+            app.Screenshot("screenshot_blue");
+            app.Tap("green");
+            app.Screenshot("screenshot_green");
+        }
     }
 }
