@@ -11,7 +11,7 @@ defaults:
 
 jobs:
   beta-distribution:
-    runs-on: windows-latest
+    runs-on: macos-latest
     env:
       working-directory: ./reactdemoapp
     name: Beta Distribution
@@ -59,4 +59,3 @@ jobs:
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v1.0.3
       - run: msbuild ../reactdemoapp-uitest/reactdemoapp-uitest.Droid/reactdemoapp-uitest.Droid.csproj
-      # - run: cd ../reactdemoapp-uitest && dotnet build reactdemoapp-uitest.sln
