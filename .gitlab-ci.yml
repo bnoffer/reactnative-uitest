@@ -12,7 +12,6 @@
     paths:
     - $CI_PROJECT_NAME-$CI_COMMIT_REF_NAME.$FILE_TYPE
     expire_in: 7 days
-  when: manual
 
 deploy:android:debug:
   variables:
