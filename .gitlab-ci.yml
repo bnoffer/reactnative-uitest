@@ -1,6 +1,7 @@
 .job_template: &job_deploy
   stage: deploy
   before_script:
+    - echo Restore node modules ...
     - cd reactdemoapp && npm install
   tags:
     - rnbuild
@@ -20,6 +21,10 @@ deploy:android:debug:
     OUTPUT_PATH: reactdemoapp/android/app/build/outputs/apk/debug/app-debug
   <<: *job_deploy
   script:
-    - printenv
+    - echo Creating Android App Bundle ...
     - cd android && ./gradlew assembleDebug
+    - echo Restoring nuget Packages ...
+    - cd ../../reactdemoapp-uitest && nuget restore
+    - echo Building Xamarin UI Test Project ...
+    - msbuild reactdemoapp-uitest.Droid/reactdemoapp-uitest.Droid.csproj
   
