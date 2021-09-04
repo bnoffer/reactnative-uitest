@@ -26,5 +26,5 @@ deploy:android:debug:
     - cd ../../reactdemoapp-uitest && nuget restore
     - echo Building Xamarin UI Test Project ...
     - msbuild reactdemoapp-uitest.sln /p:Configuration=Debug /p:Platform="Any CPU"
-    - echo "TODO: Execute App Center UI Test"
+    - echo TODO: Execute App Center UI Test
   
