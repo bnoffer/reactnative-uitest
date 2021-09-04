@@ -20,6 +20,6 @@ deploy:android:debug:
     OUTPUT_PATH: reactdemoapp/android/app/build/outputs/apk/debug/app-debug
   <<: *job_deploy
   script:
-    - pwd
+    - printenv
     - cd android && ./gradlew assembleDebug
   
