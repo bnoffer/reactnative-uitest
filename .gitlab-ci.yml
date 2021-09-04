@@ -1,0 +1,30 @@
+.job_template: &job_deploy
+  stage: deploy
+  before_script:
+    - echo Restore node modules ...
+    - cd reactdemoapp && npm install
+  tags:
+    - rnbuild
+  after_script:
+    - cp $OUTPUT_PATH.$FILE_TYPE $CI_PROJECT_NAME-$CI_COMMIT_REF_NAME.$FILE_TYPE
+  artifacts:
+    name: "$CI_PROJECT_NAME-$PLATFORM-$CI_COMMIT_REF_NAME"
+    paths:
+    - $CI_PROJECT_NAME-$CI_COMMIT_REF_NAME.$FILE_TYPE
+    expire_in: 7 days
+  when: manual
+
+deploy:android:debug:
+  variables:
+    PLATFORM: android
+    FILE_TYPE: apk
+    OUTPUT_PATH: reactdemoapp/android/app/build/outputs/apk/debug/app-debug
+  <<: *job_deploy
+  script:
+    - echo Creating Android App Bundle ...
+    - cd android && ./gradlew assembleDebug
+    - echo Restoring nuget Packages ...
+    - cd ../../reactdemoapp-uitest && nuget restore
+    - echo Building Xamarin UI Test Project ...
+    - msbuild reactdemoapp-uitest.sln /p:Configuration=Debug /p:Platform="Any CPU"
+  
