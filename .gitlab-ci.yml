@@ -26,5 +26,5 @@ deploy:android:debug:
     - echo Restoring nuget Packages ...
     - cd ../../reactdemoapp-uitest && nuget restore
     - echo Building Xamarin UI Test Project ...
-    - msbuild reactdemoapp-uitest.sln
+    - msbuild reactdemoapp-uitest.sln /p:Configuration=Debug /p:Platform="Any CPU"
   
