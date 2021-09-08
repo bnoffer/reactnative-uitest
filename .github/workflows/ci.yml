@@ -11,7 +11,7 @@ defaults:
 
 jobs:
   beta-distribution:
-    runs-on: macos-latest
+    runs-on: windows-latest
     env:
       working-directory: ./reactdemoapp
     name: Beta Distribution
@@ -21,7 +21,6 @@ jobs:
       - uses: actions/setup-node@master
         with:
           node-version: 14.x
-      # - uses: c-hive/gha-yarn-cache@v1
 
       - name: Install node modules
         run: |
@@ -50,7 +49,7 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: Debug App Bundle
-          path: android/app/build/outputs/bundle/debug/app-debug.aab
+          path: android/app/build/outputs/apk/debug/app-debug.apk
 
       # - uses: actions/setup-dotnet@v1
       - uses: nuget/setup-nuget@v1
