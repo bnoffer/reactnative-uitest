@@ -1,3 +1,11 @@
+.job_template: &job_build
+  stage: build
+  before_script:
+    - echo Restore node modules ...
+    - cd reactdemoapp && npm install
+  tags:
+    - macosbuild
+
 .job_template: &job_deploy
   stage: deploy
   before_script:
@@ -6,12 +14,18 @@
   tags:
     - macosbuild
   after_script:
-    - cp $OUTPUT_PATH.$FILE_TYPE $CI_PROJECT_NAME-$CI_COMMIT_REF_NAME.$FILE_TYPE
+    - cp $OUTPUT_PATH.$FILE_TYPE $CI_PROJECT_NAME-$CI_MERGE_REQUEST_TARGET_BRANCH_NAME.$FILE_TYPE
   artifacts:
-    name: "$CI_PROJECT_NAME-$PLATFORM-$CI_COMMIT_REF_NAME"
+    name: "$CI_PROJECT_NAME-$PLATFORM-$CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
     paths:
-      - $CI_PROJECT_NAME-$CI_COMMIT_REF_NAME.$FILE_TYPE
+      - $CI_PROJECT_NAME-$CI_MERGE_REQUEST_TARGET_BRANCH_NAME.$FILE_TYPE
     expire_in: 7 days
+
+build:android:
+  <<: *job_build
+  script:
+    - echo Creating Android App Bundle ...
+    - cd android && ./gradlew assembleRelease -PMYAPP_RELEASE_STORE_PASSWORD=$KEYSTORE_PASSWORD -PMYAPP_RELEASE_KEY_PASSWORD=KEYSTORE_PASSWORD
 
 deploy:android:uitest:
   variables:
@@ -21,6 +35,8 @@ deploy:android:uitest:
     TEST_BUILD_PATH: reactdemoapp-uitest/reactdemoapp-uitest.Droid/bin/Debug
     UITEST_TOOL_PATH: reactdemoapp-uitest/packages/Xamarin.UITest.3.0.9/tools/
   <<: *job_deploy
+  rules:
+    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"'
   script:
     - echo Creating Android App Bundle ...
     - cd android && ./gradlew assembleRelease -PMYAPP_RELEASE_STORE_PASSWORD=$KEYSTORE_PASSWORD -PMYAPP_RELEASE_KEY_PASSWORD=KEYSTORE_PASSWORD
